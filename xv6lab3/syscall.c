@@ -181,8 +181,4 @@ syscall(void)
             curproc->pid, curproc->name, num);
     curproc->tf->eax = -1;
   }
-  
-  //Prints out the process name and the exit status.
-  cprintf("%s()", sysnames(num));
-  cprintf(" -> %d\n", curproc->tf->eax);
 }
