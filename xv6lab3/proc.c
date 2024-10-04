@@ -199,6 +199,7 @@ fork(void)
   np->sz = curproc->sz;
   np->parent = curproc;
   *np->tf = *curproc->tf;
+  np->nice = 20;
 
   // Clear %eax so that fork returns 0 in the child.
   np->tf->eax = 0;
@@ -219,6 +220,53 @@ fork(void)
   release(&ptable.lock);
 
   return pid;
+}
+
+// Sets the priority of a given process.
+int set_priority(int pid, int priority){
+    // Searches through the ptable for the given pid.
+    struct proc *p;
+    int found = 0;
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+        if (p->pid == pid){
+            found = 1;
+            break;
+        }
+    }
+    // Process not found.
+    if (found == 0){ 
+        return -1;
+    }
+
+    //Sys call to get the process with the pid.
+    if (priority < 0){
+        p->nice = 0;
+    } else if (priority > 39){
+        p->nice = 39;
+    } else{
+        p->nice = priority;
+    }
+    //Process's priority successfully set.
+    return 0;
+}
+
+// Gets a process priority
+int get_priority(int pid){
+    //Searches p table for our process.
+    struct proc *p;
+    int found = 0;
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+        if (p->pid == pid){
+            found = 1;
+            break;
+        }
+    }
+    // Process not found
+    if (found == 0){ 
+        return -1;
+    }
+    // Process found
+    return p->nice;
 }
 
 // Exit the current process.  Does not return.

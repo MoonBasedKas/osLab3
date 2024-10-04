@@ -13,6 +13,22 @@ sys_fork(void)
   return fork();
 }
 
+// System call version of get priority
+int sys_get_priority(){
+  int priority;
+  argint(0, &priority);
+  return get_priority(priority);
+}
+
+// System call version of set priority.
+int sys_set_priority(void){
+  int pid;
+  argint(0, &pid);
+  int priority;
+  argint(1, &priority);
+  return set_priority(pid, priority);
+}
+
 int
 sys_exit(void)
 {

@@ -103,6 +103,9 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
+// Newly added function prototypes.
+extern int sys_set_priority(void);
+extern int sys_get_priority(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -126,6 +129,41 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_set_priority] sys_set_priority,
+[SYS_get_priority] sys_get_priority
+};
+
+
+// This function will take a integer and look up its value
+// to obtain its system call name.
+char *sysnames(int index) {
+  switch(index){
+    case SYS_fork: return "fork";
+    case SYS_exit: return "exit";
+    case SYS_wait: return "wait";
+    case SYS_pipe: return "pipe";
+    case SYS_read: return "read";
+    case SYS_kill: return "kill";
+    case SYS_exec: return "exec";
+    case SYS_fstat: return "fstat";
+    case SYS_chdir: return "chdir";
+    case SYS_dup: return "dup";
+    case SYS_getpid: return "getpid";
+    case SYS_sbrk: return "sbrk";
+    case SYS_sleep: return "sleep";
+    case SYS_uptime: return "uptime";
+    case SYS_open: return "open";
+    case SYS_write: return "write";
+    case SYS_mknod: return "mknod";
+    case SYS_unlink: return "unlink";
+    case SYS_link: return "link";
+    case SYS_mkdir: return "mkdir";
+    case SYS_close: return "close";
+    case SYS_set_priority: return "set_priority";
+    case SYS_get_priority: return "get_priority";
+  }
+  return "Unknown process";
+
 };
 
 void
@@ -137,9 +175,14 @@ syscall(void)
   num = curproc->tf->eax;
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
+    
   } else {
     cprintf("%d %s: unknown sys call %d\n",
             curproc->pid, curproc->name, num);
     curproc->tf->eax = -1;
   }
+  
+  //Prints out the process name and the exit status.
+  cprintf("%s()", sysnames(num));
+  cprintf(" -> %d\n", curproc->tf->eax);
 }
