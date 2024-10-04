@@ -25,6 +25,7 @@ int sleep(int);
 int uptime(void);
 int get_priority(int);
 int set_priority(int, int);
+int cps(void); // Added by Kassidy Maberry
 
 
 // ulib.c

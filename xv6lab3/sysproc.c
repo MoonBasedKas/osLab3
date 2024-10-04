@@ -13,6 +13,12 @@ sys_fork(void)
   return fork();
 }
 
+// Added by Kassidy Maberry
+int sys_cps(){
+
+  return cps();
+}
+
 // System call version of get priority
 int sys_get_priority(){
   int priority;

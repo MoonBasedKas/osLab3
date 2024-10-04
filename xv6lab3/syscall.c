@@ -106,6 +106,7 @@ extern int sys_uptime(void);
 // Newly added function prototypes.
 extern int sys_set_priority(void);
 extern int sys_get_priority(void);
+extern int sys_cps(void); // Added by Kassidy Maberry
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -130,7 +131,8 @@ static int (*syscalls[])(void) = {
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
 [SYS_set_priority] sys_set_priority,
-[SYS_get_priority] sys_get_priority
+[SYS_get_priority] sys_get_priority,
+[SYS_cps] sys_cps // Added by Kassidy Maberry
 };
 
 

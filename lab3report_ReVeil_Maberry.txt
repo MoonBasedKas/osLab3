@@ -1,8 +1,5 @@
-ESTIMATE of time to complete lab: ? hours
-      Start  Time   Lab 
-DATE  Time   Spent  Part  Work Completed
-----  -----  -----  ----  ---------
-
-          -----
-          00:00 TOTAL time Spent
-          
+Task 1 ps Output:
+name 	 pid 	 state 	 priority 
+init 	 1 	 SLEEEPING 	 0 
+sh 	 2 	 SLEEEPING 	 20 
+ps 	 4 	 RUNNING 	 20 
