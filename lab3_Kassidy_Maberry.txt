@@ -1,0 +1,8 @@
+ESTIMATE of time to complete lab: 5 hours
+      Start  Time   Lab 
+DATE  Time   Spent  Part  Work Completed
+----  -----  -----  ----  ---------
+
+          -----
+          00:00 TOTAL time Spent
+          
